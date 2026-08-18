@@ -7,7 +7,7 @@ GradeBook is a small Java application developed as part of the Software Quality 
 1. Clone the repository:
 
 ```bash
-git clone <https://github.com/lakeshkumarkhatri/sqe-course.git>
+git clone <https://github.com/lakeshkumarkhatri/software-quality-engineering.git>
 ```
 
 2. Navigate to the project directory:
