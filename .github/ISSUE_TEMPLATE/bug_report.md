@@ -5,7 +5,7 @@ about: Report a problem or defect in the project
 title: "[BUG] "
 labels: ""
 assignees: ""
--------------
+---
 
 # Bug Report
 
