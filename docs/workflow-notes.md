@@ -17,7 +17,8 @@ Merge
   ↓
 CI
   ↓
-Release```
+Release
+```
 
 ## QA Engineer Involvement
 
