@@ -1,23 +1,33 @@
-# SQE Course
+# SQE GradeBook
 
-## Software Quality Engineering
+GradeBook is a small Java application developed as part of the Software Quality Engineering (SQE) lab series. The project stores student records and their scores and will gradually be extended with features for managing students and computing grade statistics while applying professional software-quality practices through GitHub, including structured commits, branches, pull requests, issue tracking, code review, and automated testing.
 
-This repository contains the labs, projects, documentation, testing activities, and related work completed for the Software Quality Engineering course.
+## Installation
 
-## Project
+1. Clone the repository:
 
-The repository includes the Library Management project developed as part of the course activities.
+```bash
+git clone <https://github.com/lakeshkumarkhatri/sqe-course.git>
+```
 
-## Repository Structure
+2. Navigate to the project directory:
 
-- `src/` - Application source code
-- `tests/` - Test cases and automated tests
-- `docs/` - Project documentation
-- `screenshots/` - Evidence of testing and activities
-- `README.md` - Project information
-- `.gitignore` - Files that Git should not track
-- `LICENSE` - Project licensing information
+```bash
+cd sqe-course
+```
 
-## Purpose
+3. Make sure Java is installed and configured on your system.
 
-The purpose of this repository is to practice software quality engineering principles, version control using Git and GitHub, software testing, documentation, and quality assurance practices.
+4. Open the project in your preferred Java IDE or code editor.
+
+## Running Tests
+
+Testing will be added in a later stage of the project.
+
+```text
+Test execution: To be added in a future lab.
+```
+
+## Badges
+
+<!-- CI badge will be added in Lab 14 -->
