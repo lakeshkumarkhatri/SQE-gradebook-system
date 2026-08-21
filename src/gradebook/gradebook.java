@@ -11,4 +11,8 @@ public class gradebook {
         this.rollNo = rollNo;
         this.scores = new ArrayList<>();
     }
+
+    public void addScore(double score) {
+        scores.add(score);
+    }
 }
