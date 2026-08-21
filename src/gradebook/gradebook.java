@@ -12,6 +12,12 @@ public class gradebook {
         this.scores = new ArrayList<>();
     }
 
+    /**
+     * Adds a score to the student's score list.
+     *
+     * @param score the score to add; must not be negative
+     * @throws IllegalArgumentException if the score is negative
+     */
     public void addScore(double score) {
         if (score < 0) {
             throw new IllegalArgumentException("Score cannot be negative");
