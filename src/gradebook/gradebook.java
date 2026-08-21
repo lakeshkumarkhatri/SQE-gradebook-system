@@ -13,6 +13,9 @@ public class gradebook {
     }
 
     public void addScore(double score) {
+        if (score < 0) {
+            throw new IllegalArgumentException("Score cannot be negative");
+        }
         scores.add(score);
     }
 }
