@@ -6,9 +6,9 @@ public class gradebook {
     private String rollNo;
     private List<Double> scores;
 
-    public gradebook(String name, String rollNo) {
+    public gradebook(String name, String idNumber) {
         this.name = name;
-        this.rollNo = rollNo;
+        this.rollNo = idNumber;
         this.scores = new ArrayList<>();
     }
 
