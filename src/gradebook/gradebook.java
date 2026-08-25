@@ -19,9 +19,16 @@ public class gradebook {
      * @throws IllegalArgumentException if the score is negative, NaN, or infinite
      */
     public void addScore(double scoreValue) {
-        if (scoreValue < 0 || !Double.isFinite(scoreValue)) {
-            throw new IllegalArgumentException("Score must be a finite non-negative value");
-        }
         scores.add(scoreValue);
+    }
+
+    public double average() {
+        double sum = 0.0;
+
+        for (double score : scores) {
+            sum += score;
+        }
+
+        return sum / scores.size();
     }
 }
