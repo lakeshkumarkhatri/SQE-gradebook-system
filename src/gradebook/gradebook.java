@@ -23,6 +23,10 @@ public class gradebook {
     }
 
     public double average() {
+        if (scores.isEmpty()) {
+            return 0.0;
+        }
+
         double sum = 0.0;
 
         for (double score : scores) {
