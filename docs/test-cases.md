@@ -1,0 +1,16 @@
+# GradeBook Test Cases
+
+| ID | Title | Requirement | Preconditions | Steps | Expected | Priority | Type |
+|---|---|---|---|---|---|---|---|
+| TC-001 | Add valid score | REQ-1 | A GradeBook record exists with an empty score list. | 1. Call `addScore(85)`. | Score `85` is accepted and stored in the student's score list. | High | Functional / Positive |
+| TC-002 | Reject negative score | REQ-2 | A GradeBook record exists with an empty score list. | 1. Call `addScore(-5)`. | `IllegalArgumentException` is raised and the invalid score is not stored. | High | Negative / Functional |
+| TC-003 | Reject non-numeric input | REQ-2 | A GradeBook record exists. | 1. Attempt to provide a non-numeric value such as `"abc"` to `addScore()`. | The non-numeric value is rejected because `addScore()` requires a `double` value. | Medium | Negative / Error-path |
+| TC-004 | Calculate average with multiple scores | REQ-3 | A GradeBook record exists with an empty score list. | 1. Add scores `80`, `90`, and `100`. 2. Call `average()`. | `average()` returns `90.0`. | High | Functional / Positive |
+| TC-005 | Calculate average with empty list | REQ-3 | A newly created GradeBook record has no scores. | 1. Call `average()`. | `average()` returns `0.0`. | High | Functional / Boundary |
+| TC-006 | Calculate average with one score | REQ-3 | A GradeBook record exists with an empty score list. | 1. Add score `75`. 2. Call `average()`. | `average()` returns `75.0`. | Medium | Functional / Positive |
+| TC-007 | Reject duplicate roll number | REQ-4 | No existing GradeBook record uses roll number `101`. | 1. Create a GradeBook record with roll number `101`. 2. Attempt to create another record with roll number `101`. | The second creation raises `IllegalArgumentException` and the duplicate record is not created. | High | Negative / Functional |
+| TC-008 | Handle name case-insensitivity | REQ-5 | A GradeBook record exists with the name `Ali`. | 1. Attempt to compare or identify the name using a different capitalization such as `ALI`. | The name is treated as equivalent regardless of capitalization. | Medium | Functional / Negative |
+| TC-009 | Accept maximum score boundary | REQ-6 | A GradeBook record exists with an empty score list. | 1. Call `addScore(100)`. | Score `100` is accepted and stored. | High | Boundary / Functional |
+| TC-010 | Accept minimum score boundary | REQ-6 | A GradeBook record exists with an empty score list. | 1. Call `addScore(0)`. | Score `0` is accepted and stored. | High | Boundary / Functional |
+| TC-011 | Convert mid-range score to letter grade | REQ-7 | A GradeBook record exists and the required grading scale is available. | 1. Provide a mid-range score according to the defined grading scale. 2. Perform the grade-letter conversion. | The score is converted to the correct letter grade according to the defined grading scale. | Medium | Functional |
+| TC-012 | Convert boundary score to letter grade | REQ-7 | A GradeBook record exists and the required grading scale is available. | 1. Provide a score exactly at a grade boundary. 2. Perform the grade-letter conversion. | The score receives the correct letter grade according to the defined boundary rule. | Medium | Boundary / Functional |
