@@ -1,9 +1,11 @@
+
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 public class gradebook {
+
     private String name;
     private String rollNo;
     private List<Double> scores;
@@ -26,7 +28,8 @@ public class gradebook {
      * Adds a score to the student's score list.
      *
      * @param scoreValue the score to add; must be finite and non-negative
-     * @throws IllegalArgumentException if the score is negative, NaN, or infinite
+     * @throws IllegalArgumentException if the score is negative, NaN, or
+     * infinite
      */
     public void addScore(double scoreValue) {
         if (scoreValue < 0 || !Double.isFinite(scoreValue)) {
@@ -35,6 +38,24 @@ public class gradebook {
         }
 
         scores.add(scoreValue);
+    }
+
+    public String letterGrade(double score) {
+        if (score < 0 || score > 100) {
+            throw new IllegalArgumentException("Score must be between 0 and 100");
+        }
+
+        if (score < 60) {
+            return "F";
+        } else if (score < 70) {
+            return "D";
+        } else if (score < 80) {
+            return "C";
+        } else if (score < 90) {
+            return "B";
+        } else {
+            return "A";
+        }
     }
 
     public double average() {
