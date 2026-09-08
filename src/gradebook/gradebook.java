@@ -62,6 +62,14 @@ public class gradebook {
         }
     }
 
+    public boolean validateName(String name) {
+        if (name == null || name.isEmpty() || name.length() > 50) {
+            return false;
+        }
+
+        return name.matches("[A-Za-z -]+");
+    }
+
     public double average() {
         if (scores.isEmpty()) {
             return 0.0;

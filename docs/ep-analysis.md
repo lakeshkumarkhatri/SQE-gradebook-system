@@ -25,3 +25,16 @@ Business rule: The student name must be a non-empty string, have a maximum of 50
 ## EP Limitation
 
 Equivalence Partitioning may miss defects at boundaries because it tests representative values from each class. For example, a defect specifically at the boundary between valid and invalid classes may not be detected. Boundary Value Analysis can help identify these boundary-related defects.
+
+## JUnit Test Execution Summary
+
+The full JUnit 5 test suite was executed after implementing the equivalence partitioning tests.
+
+- ValidateNameTest: 5 tests successful
+- RosterTest: 3 tests successful
+- GradebookLetterGradeTest: 7 tests successful
+- Total: 15 tests successful
+- Failed: 0
+- Skipped: 0
+
+All equivalence partitioning tests passed successfully.
