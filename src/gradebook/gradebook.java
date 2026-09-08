@@ -40,6 +40,10 @@ public class gradebook {
         scores.add(scoreValue);
     }
 
+    public int getScoreCount() {
+        return scores.size();
+    }
+
     public String letterGrade(double score) {
         if (score < 0 || score > 100) {
             throw new IllegalArgumentException("Score must be between 0 and 100");
