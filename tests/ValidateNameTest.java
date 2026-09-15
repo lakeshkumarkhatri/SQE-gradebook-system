@@ -1,3 +1,4 @@
+
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -35,5 +36,21 @@ public class ValidateNameTest {
     void testSymbolsInvalid() {
         gradebook student = new gradebook("Test Student", "NAME-5");
         assertFalse(student.validateName("Ali@Khan"));
+    }
+
+    @Test
+    void testNameLengthBoundaries() {
+        gradebook student = new gradebook("Length Test", "BVA-NAME-LENGTH");
+
+        String oneChar = "A";
+        String fortyNineChars = "A".repeat(49);
+        String fiftyChars = "A".repeat(50);
+        String fiftyOneChars = "A".repeat(51);
+
+        assertFalse(student.validateName(""));
+        assertTrue(student.validateName(oneChar));
+        assertTrue(student.validateName(fortyNineChars));
+        assertTrue(student.validateName(fiftyChars));
+        assertFalse(student.validateName(fiftyOneChars));
     }
 }
