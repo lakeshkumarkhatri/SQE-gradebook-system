@@ -67,7 +67,7 @@ public class gradebook {
             return false;
         }
 
-        return name.matches("[A-Za-z -]+");
+        return name.matches(".*[A-Za-z].*") && name.matches("[A-Za-z -]+");
     }
 
     public double average() {
