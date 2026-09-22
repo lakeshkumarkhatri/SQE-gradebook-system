@@ -53,4 +53,16 @@ public class ValidateNameTest {
         assertTrue(student.validateName(fiftyChars));
         assertFalse(student.validateName(fiftyOneChars));
     }
+
+    @Test
+    void testNameMustContainAtLeastOneLetter() {
+        gradebook student = new gradebook("Test Student", "NAME-6");
+
+        assertFalse(student.validateName("-----"));
+        assertFalse(student.validateName("     "));
+        assertFalse(student.validateName("- - -"));
+
+        assertTrue(student.validateName("Ali"));
+        assertTrue(student.validateName("Ali-Khan"));
+    }
 }
