@@ -43,7 +43,6 @@ public class gradebook {
     public int getScoreCount() {
         return scores.size();
     }
-    
      public String getName() {
         return name;
     }
