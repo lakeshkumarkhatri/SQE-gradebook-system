@@ -1,6 +1,5 @@
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Roster {
@@ -27,6 +26,6 @@ public class Roster {
     }
 
     public java.util.List<gradebook> rank_students() {
-        return Collections.emptyList();
+        return new ArrayList<>(students);
     }
 }
