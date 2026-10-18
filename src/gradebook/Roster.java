@@ -27,20 +27,18 @@ public class Roster {
 
     public List<gradebook> rank_students() {
         List<gradebook> ranked = new ArrayList<>(students);
-
-        ranked.sort(
-                (first, second) -> {
-                    int averageComparison
-                    = Double.compare(second.average(), first.average());
-
-                    if (averageComparison != 0) {
-                        return averageComparison;
-                    }
-
-                    return first.getName().compareToIgnoreCase(second.getName());
-                }
-        );
-
+        ranked.sort(this::compareStudents);
         return ranked;
+    }
+
+    private int compareStudents(gradebook first, gradebook second) {
+        int averageComparison
+                = Double.compare(second.average(), first.average());
+
+        if (averageComparison != 0) {
+            return averageComparison;
+        }
+
+        return first.getName().compareToIgnoreCase(second.getName());
     }
 }
