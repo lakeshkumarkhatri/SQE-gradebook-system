@@ -8,6 +8,6 @@ public class RankStudentsTest {
     void emptyRosterReturnsEmptyList() {
         Roster roster = new Roster();
 
-        assertEquals(0, rank_students(roster).size());
+        assertEquals(0, roster.rank_students().size());
     }
 }
