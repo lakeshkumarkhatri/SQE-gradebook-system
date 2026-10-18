@@ -32,13 +32,20 @@ public class Roster {
     }
 
     private int compareStudents(gradebook first, gradebook second) {
-        int averageComparison
-                = Double.compare(second.average(), first.average());
+        int averageComparison =
+                Double.compare(second.average(), first.average());
 
         if (averageComparison != 0) {
             return averageComparison;
         }
 
-        return first.getName().compareToIgnoreCase(second.getName());
+        int nameComparison =
+                first.getName().compareToIgnoreCase(second.getName());
+
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
+
+        return first.getName().compareTo(second.getName());
     }
 }
