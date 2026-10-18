@@ -5,6 +5,29 @@ import static org.junit.jupiter.api.Assertions.*;
 public class RankStudentsTest {
 
     @Test
+    void studentsAreRankedByAverageDescending() {
+        Roster roster = new Roster();
+
+        gradebook ali = new gradebook("Ali", "LAB8-101");
+        ali.addScore(60);
+
+        gradebook sara = new gradebook("Sara", "LAB8-102");
+        sara.addScore(95);
+
+        gradebook ahmed = new gradebook("Ahmed", "LAB8-103");
+        ahmed.addScore(80);
+
+        roster.addStudent(ali);
+        roster.addStudent(sara);
+        roster.addStudent(ahmed);
+
+        assertEquals(
+                java.util.List.of(sara, ahmed, ali),
+                roster.rank_students()
+        );
+    }
+
+    @Test
     void singleStudentReturnsThatStudent() {
         Roster roster = new Roster();
 
