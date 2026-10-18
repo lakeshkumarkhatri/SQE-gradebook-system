@@ -29,8 +29,16 @@ public class Roster {
         List<gradebook> ranked = new ArrayList<>(students);
 
         ranked.sort(
-                (first, second)
-                -> Double.compare(second.average(), first.average())
+                (first, second) -> {
+                    int averageComparison
+                    = Double.compare(second.average(), first.average());
+
+                    if (averageComparison != 0) {
+                        return averageComparison;
+                    }
+
+                    return first.getName().compareToIgnoreCase(second.getName());
+                }
         );
 
         return ranked;

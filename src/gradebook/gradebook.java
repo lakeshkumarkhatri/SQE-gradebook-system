@@ -43,6 +43,10 @@ public class gradebook {
     public int getScoreCount() {
         return scores.size();
     }
+    
+     public String getName() {
+        return name;
+    }
 
     public String letterGrade(double score) {
         if (score < 0 || score > 100) {
