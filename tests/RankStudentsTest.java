@@ -70,4 +70,26 @@ public class RankStudentsTest {
 
         assertEquals(0, roster.rank_students().size());
     }
+
+    @Test
+    void zeroAverageStudentRanksBelowStudentsWithScores() {
+        Roster roster = new Roster();
+
+        gradebook zero = new gradebook("Ali", "LAB8-301");
+
+        gradebook high = new gradebook("Sara", "LAB8-302");
+        high.addScore(90);
+
+        gradebook medium = new gradebook("Ahmed", "LAB8-303");
+        medium.addScore(50);
+
+        roster.addStudent(zero);
+        roster.addStudent(high);
+        roster.addStudent(medium);
+
+        assertEquals(
+                java.util.List.of(high, medium, zero),
+                roster.rank_students()
+        );
+    }
 }
