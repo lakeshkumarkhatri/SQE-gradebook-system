@@ -72,23 +72,20 @@ public class RankStudentsTest {
     }
 
     @Test
-    void zeroAverageStudentRanksBelowStudentsWithScores() {
+    void equalAveragesIgnoreNameCaseWhenSorting() {
         Roster roster = new Roster();
 
-        gradebook zero = new gradebook("Ali", "LAB8-301");
+        gradebook lowercase = new gradebook("ali", "LAB8-311");
+        lowercase.addScore(80);
 
-        gradebook high = new gradebook("Sara", "LAB8-302");
-        high.addScore(90);
+        gradebook uppercase = new gradebook("Ali", "LAB8-312");
+        uppercase.addScore(80);
 
-        gradebook medium = new gradebook("Ahmed", "LAB8-303");
-        medium.addScore(50);
-
-        roster.addStudent(zero);
-        roster.addStudent(high);
-        roster.addStudent(medium);
+        roster.addStudent(lowercase);
+        roster.addStudent(uppercase);
 
         assertEquals(
-                java.util.List.of(high, medium, zero),
+                java.util.List.of(uppercase, lowercase),
                 roster.rank_students()
         );
     }
