@@ -6,6 +6,14 @@ import java.util.concurrent.atomic.AtomicReference;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+<<<<<<< HEAD
+=======
+
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.concurrent.atomic.AtomicReference;
+
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
 import org.junit.jupiter.api.Test;
 
 public class RosterTest {
@@ -138,9 +146,18 @@ public class RosterTest {
         student.addScore(80);
         roster.addStudent(student);
 
+<<<<<<< HEAD
         roster.save_to_file("test.txt");
 
         assertTrue(capturedWriter.get().toString().contains("Student Count: 1"));
+=======
+        roster.save_to_file("unused-test-path.txt");
+
+        String content = capturedWriter.get().toString();
+
+        assertTrue(content.contains("Student Count: 1"));
+        assertTrue(content.contains("Class Average: 80.0"));
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
     }
 
     @Test
@@ -151,11 +168,16 @@ public class RosterTest {
 
         GradeBookIOError error = assertThrows(
                 GradeBookIOError.class,
+<<<<<<< HEAD
                 () -> roster.save_to_file("test.txt")
+=======
+                () -> roster.save_to_file("unused-test-path.txt")
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
         );
 
         assertTrue(error.getCause() instanceof IOException);
     }
+<<<<<<< HEAD
 
     @Test
     void testPercentileNormalCalculation() {
@@ -214,3 +236,6 @@ public class RosterTest {
     }
 
 }
+=======
+}
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
