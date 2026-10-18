@@ -25,7 +25,14 @@ public class Roster {
         return students.size();
     }
 
-    public java.util.List<gradebook> rank_students() {
-        return new ArrayList<>(students);
+    public List<gradebook> rank_students() {
+        List<gradebook> ranked = new ArrayList<>(students);
+
+        ranked.sort(
+                (first, second)
+                -> Double.compare(second.average(), first.average())
+        );
+
+        return ranked;
     }
 }
