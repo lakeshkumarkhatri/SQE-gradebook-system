@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -51,7 +54,12 @@ public class Roster {
     }
 
     public void save_to_file(String path) {
+<<<<<<< HEAD
         try (Writer writer = writerFactory.open(path); BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+=======
+        try (Writer writer = writerFactory.open(path);
+             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
             bufferedWriter.write("Student Count: " + students.size());
             bufferedWriter.newLine();
             bufferedWriter.write("Class Average: " + class_average());
@@ -60,6 +68,7 @@ public class Roster {
             throw new GradeBookIOError("Could not save roster", e);
         }
     }
+<<<<<<< HEAD
 
     public List<gradebook> rank_students() {
         List<gradebook> ranked = new ArrayList<>(students);
@@ -115,12 +124,24 @@ public class Roster {
 
 interface WriterFactory {
 
+=======
+}
+
+interface WriterFactory {
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
     Writer open(String path) throws IOException;
 }
 
 class GradeBookIOError extends RuntimeException {
+<<<<<<< HEAD
 
     public GradeBookIOError(String message, Throwable cause) {
         super(message, cause);
     }
 }
+=======
+    public GradeBookIOError(String message, Throwable cause) {
+        super(message, cause);
+    }
+}
+>>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
