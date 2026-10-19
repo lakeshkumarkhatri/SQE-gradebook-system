@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,5 +23,29 @@ public class Roster {
 
     public int getStudentCount() {
         return students.size();
+    }
+
+    public List<gradebook> rank_students() {
+        List<gradebook> ranked = new ArrayList<>(students);
+        ranked.sort(this::compareStudents);
+        return ranked;
+    }
+
+    private int compareStudents(gradebook first, gradebook second) {
+        int averageComparison =
+                Double.compare(second.average(), first.average());
+
+        if (averageComparison != 0) {
+            return averageComparison;
+        }
+
+        int nameComparison =
+                first.getName().compareToIgnoreCase(second.getName());
+
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
+
+        return first.getName().compareTo(second.getName());
     }
 }
