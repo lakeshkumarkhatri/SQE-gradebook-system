@@ -31,7 +31,3 @@ Test execution: To be added in a future lab.
 ## Badges
 
 <!-- CI badge will be added in Lab 14 -->
-
-## Author
-
-<!-- CI badge will be added in Lab 14 -->
