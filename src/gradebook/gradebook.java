@@ -47,10 +47,6 @@ public class gradebook {
         return name;
     }
 
-    public String getName() {
-        return name;
-    }
-
     public String letterGrade(double score) {
         if (score < 0 || score > 100) {
             throw new IllegalArgumentException("Score must be between 0 and 100");
