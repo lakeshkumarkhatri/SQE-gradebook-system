@@ -43,7 +43,8 @@ public class gradebook {
     public int getScoreCount() {
         return scores.size();
     }
-     public String getName() {
+
+    public String getName() {
         return name;
     }
 
@@ -70,7 +71,17 @@ public class gradebook {
             return false;
         }
 
-        return name.matches(".*[A-Za-z].*") && name.matches("[A-Za-z -]+");
+        boolean hasLetter = false;
+
+        for (char ch : name.toCharArray()) {
+            if (Character.isLetter(ch)) {
+                hasLetter = true;
+            } else if (ch != ' ' && ch != '-') {
+                return false;
+            }
+        }
+
+        return hasLetter;
     }
 
     public double average() {
