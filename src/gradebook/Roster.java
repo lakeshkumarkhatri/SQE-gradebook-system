@@ -1,3 +1,4 @@
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -50,8 +51,7 @@ public class Roster {
     }
 
     public void save_to_file(String path) {
-        try (Writer writer = writerFactory.open(path);
-             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+        try (Writer writer = writerFactory.open(path); BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
             bufferedWriter.write("Student Count: " + students.size());
             bufferedWriter.newLine();
             bufferedWriter.write("Class Average: " + class_average());
@@ -67,16 +67,29 @@ public class Roster {
         return ranked;
     }
 
+    public double percentile(gradebook s, List<gradebook> r) {
+        int count = r.size();
+        int rank = 0;
+
+        for (gradebook x : r) {
+            if (x.average() < s.average()) {
+                rank++;
+            }
+        }
+
+        return rank / count * 100;
+    }
+
     private int compareStudents(gradebook first, gradebook second) {
-        int averageComparison =
-                Double.compare(second.average(), first.average());
+        int averageComparison
+                = Double.compare(second.average(), first.average());
 
         if (averageComparison != 0) {
             return averageComparison;
         }
 
-        int nameComparison =
-                first.getName().compareToIgnoreCase(second.getName());
+        int nameComparison
+                = first.getName().compareToIgnoreCase(second.getName());
 
         if (nameComparison != 0) {
             return nameComparison;
@@ -87,10 +100,12 @@ public class Roster {
 }
 
 interface WriterFactory {
+
     Writer open(String path) throws IOException;
 }
 
 class GradeBookIOError extends RuntimeException {
+
     public GradeBookIOError(String message, Throwable cause) {
         super(message, cause);
     }
