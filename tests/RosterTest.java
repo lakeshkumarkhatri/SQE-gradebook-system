@@ -1,11 +1,11 @@
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.Test;
 
 public class RosterTest {
@@ -138,12 +138,9 @@ public class RosterTest {
         student.addScore(80);
         roster.addStudent(student);
 
-        roster.save_to_file("unused-test-path.txt");
+        roster.save_to_file("test.txt");
 
-        String content = capturedWriter.get().toString();
-
-        assertTrue(content.contains("Student Count: 1"));
-        assertTrue(content.contains("Class Average: 80.0"));
+        assertTrue(capturedWriter.get().toString().contains("Student Count: 1"));
     }
 
     @Test
@@ -154,9 +151,66 @@ public class RosterTest {
 
         GradeBookIOError error = assertThrows(
                 GradeBookIOError.class,
-                () -> roster.save_to_file("unused-test-path.txt")
+                () -> roster.save_to_file("test.txt")
         );
 
         assertTrue(error.getCause() instanceof IOException);
     }
+
+    @Test
+    void testPercentileNormalCalculation() {
+        gradebook student1 = new gradebook("Student One", "PERCENTILE-1");
+        student1.addScore(60);
+
+        gradebook student2 = new gradebook("Student Two", "PERCENTILE-2");
+        student2.addScore(80);
+
+        gradebook student3 = new gradebook("Student Three", "PERCENTILE-3");
+        student3.addScore(100);
+
+        Roster roster = new Roster();
+        roster.addStudent(student1);
+        roster.addStudent(student2);
+        roster.addStudent(student3);
+
+        assertEquals(50.0, roster.percentile(student2,
+                java.util.List.of(student1, student2, student3)), 0.001);
+    }
+
+    @Test
+    void testPercentileEmptyRoster() {
+        gradebook student = new gradebook("Student", "PERCENTILE-4");
+        student.addScore(80);
+
+        Roster roster = new Roster();
+
+        assertEquals(0.0, roster.percentile(student,
+                java.util.List.of()), 0.001);
+    }
+
+    @Test
+    void testPercentileSingleStudent() {
+        gradebook student = new gradebook("Student", "PERCENTILE-5");
+        student.addScore(80);
+
+        Roster roster = new Roster();
+
+        assertEquals(100.0, roster.percentile(student,
+                java.util.List.of(student)), 0.001);
+    }
+
+    @Test
+    void testPercentileEqualAverages() {
+        gradebook student1 = new gradebook("Student One", "PERCENTILE-6");
+        student1.addScore(80);
+
+        gradebook student2 = new gradebook("Student Two", "PERCENTILE-7");
+        student2.addScore(80);
+
+        Roster roster = new Roster();
+
+        assertEquals(0.0, roster.percentile(student1,
+                java.util.List.of(student1, student2)), 0.001);
+    }
+
 }

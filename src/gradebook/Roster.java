@@ -67,17 +67,31 @@ public class Roster {
         return ranked;
     }
 
-public double percentile(gradebook student, List<gradebook> roster) {
-        int count = r.size();
+    /**
+     * Calculates the percentile rank of a student within a roster.
+     *
+     * @param student the student whose percentile is calculated
+     * @param roster the roster used for comparison
+     * @return the student's percentile rank
+     */
+    public double percentile(gradebook student, List<gradebook> roster) {
+        if (roster.isEmpty()) {
+            return 0.0;
+        }
+
+        if (roster.size() == 1) {
+            return 100.0;
+        }
+
         int rank = 0;
 
-        for (gradebook x : r) {
-            if (x.average() < s.average()) {
+        for (gradebook other : roster) {
+            if (other.average() < student.average()) {
                 rank++;
             }
         }
 
-        return rank / count * 100;
+        return (double) rank / (roster.size() - 1) * 100;
     }
 
     private int compareStudents(gradebook first, gradebook second) {
