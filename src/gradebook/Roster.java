@@ -1,3 +1,4 @@
+
 import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -50,8 +51,7 @@ public class Roster {
     }
 
     public void save_to_file(String path) {
-        try (Writer writer = writerFactory.open(path);
-             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+        try (Writer writer = writerFactory.open(path); BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
             bufferedWriter.write("Student Count: " + students.size());
             bufferedWriter.newLine();
             bufferedWriter.write("Class Average: " + class_average());
@@ -67,16 +67,43 @@ public class Roster {
         return ranked;
     }
 
+    /**
+     * Calculates the percentile rank of a student within a roster.
+     *
+     * @param student the student whose percentile is calculated
+     * @param roster the roster used for comparison
+     * @return the student's percentile rank
+     */
+    public double percentile(gradebook student, List<gradebook> roster) {
+        if (roster.isEmpty()) {
+            return 0.0;
+        }
+
+        if (roster.size() == 1) {
+            return 100.0;
+        }
+
+        int rank = 0;
+
+        for (gradebook other : roster) {
+            if (other.average() < student.average()) {
+                rank++;
+            }
+        }
+
+        return (double) rank / (roster.size() - 1) * 100;
+    }
+
     private int compareStudents(gradebook first, gradebook second) {
-        int averageComparison =
-                Double.compare(second.average(), first.average());
+        int averageComparison
+                = Double.compare(second.average(), first.average());
 
         if (averageComparison != 0) {
             return averageComparison;
         }
 
-        int nameComparison =
-                first.getName().compareToIgnoreCase(second.getName());
+        int nameComparison
+                = first.getName().compareToIgnoreCase(second.getName());
 
         if (nameComparison != 0) {
             return nameComparison;
@@ -87,10 +114,12 @@ public class Roster {
 }
 
 interface WriterFactory {
+
     Writer open(String path) throws IOException;
 }
 
 class GradeBookIOError extends RuntimeException {
+
     public GradeBookIOError(String message, Throwable cause) {
         super(message, cause);
     }
