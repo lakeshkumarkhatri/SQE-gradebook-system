@@ -60,6 +60,30 @@ public class Roster {
             throw new GradeBookIOError("Could not save roster", e);
         }
     }
+
+    public List<gradebook> rank_students() {
+        List<gradebook> ranked = new ArrayList<>(students);
+        ranked.sort(this::compareStudents);
+        return ranked;
+    }
+
+    private int compareStudents(gradebook first, gradebook second) {
+        int averageComparison =
+                Double.compare(second.average(), first.average());
+
+        if (averageComparison != 0) {
+            return averageComparison;
+        }
+
+        int nameComparison =
+                first.getName().compareToIgnoreCase(second.getName());
+
+        if (nameComparison != 0) {
+            return nameComparison;
+        }
+
+        return first.getName().compareTo(second.getName());
+    }
 }
 
 interface WriterFactory {
