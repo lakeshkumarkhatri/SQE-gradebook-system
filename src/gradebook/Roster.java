@@ -67,7 +67,7 @@ public class Roster {
         return ranked;
     }
 
-    public double percentile(gradebook s, List<gradebook> r) {
+public double percentile(gradebook student, List<gradebook> roster) {
         int count = r.size();
         int rank = 0;
 
