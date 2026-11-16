@@ -3,4 +3,8 @@ target/
 .idea/
 .vscode/
 *.iml
-out/
+out/7
+
+# Build and coverage output
+build/
+*.exec

@@ -1,6 +1,6 @@
 # SQE GradeBook
 
-GradeBook is a small Java application developed as part of the Software Quality Engineering (SQE) lab series. The project stores student records and their scores and will gradually be extended with features for managing students and computing grade statistics while applying professional software-quality practices through GitHub, including structured commits, branches, pull requests, issue tracking, code review, and automated testing.
+GradeBook System is a small Java application developed as part of the Software Quality Engineering (SQE) lab series. The project stores student records and their scores and will gradually be extended with features for managing students and computing grade statistics while applying professional software-quality practices through GitHub, including structured commits, branches, pull requests, issue tracking, code review, and automated testing.
 
 ## Installation
 
