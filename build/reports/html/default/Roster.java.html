@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Roster.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">Roster.java</span></div><h1>Roster.java</h1><pre class="source lang-java linenums">
+import java.util.ArrayList;
+import java.util.List;
+
+public class Roster {
+
+    private List&lt;gradebook&gt; students;
+
+<span class="fc" id="L9">    public Roster() {</span>
+<span class="fc" id="L10">        students = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L11">    }</span>
+
+    public void addStudent(gradebook student) {
+<span class="fc" id="L14">        int scoreCount = student.getScoreCount();</span>
+
+<span class="fc bfc" id="L16" title="All 4 branches covered.">        if (scoreCount &lt; 1 || scoreCount &gt; 6) {</span>
+<span class="fc" id="L17">            throw new IllegalArgumentException(</span>
+                    &quot;A student must have between 1 and 6 scores&quot;);
+        }
+
+<span class="fc" id="L21">        students.add(student);</span>
+<span class="fc" id="L22">    }</span>
+
+    public int getStudentCount() {
+<span class="fc" id="L25">        return students.size();</span>
+    }
+
+    public List&lt;gradebook&gt; rank_students() {
+<span class="fc" id="L29">        List&lt;gradebook&gt; ranked = new ArrayList&lt;&gt;(students);</span>
+<span class="fc" id="L30">        ranked.sort(this::compareStudents);</span>
+<span class="fc" id="L31">        return ranked;</span>
+    }
+
+    private int compareStudents(gradebook first, gradebook second) {
+<span class="fc" id="L35">        int averageComparison =</span>
+<span class="fc" id="L36">                Double.compare(second.average(), first.average());</span>
+
+<span class="fc bfc" id="L38" title="All 2 branches covered.">        if (averageComparison != 0) {</span>
+<span class="fc" id="L39">            return averageComparison;</span>
+        }
+
+<span class="fc" id="L42">        int nameComparison =</span>
+<span class="fc" id="L43">                first.getName().compareToIgnoreCase(second.getName());</span>
+
+<span class="fc bfc" id="L45" title="All 2 branches covered.">        if (nameComparison != 0) {</span>
+<span class="fc" id="L46">            return nameComparison;</span>
+        }
+
+<span class="fc" id="L49">        return first.getName().compareTo(second.getName());</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>

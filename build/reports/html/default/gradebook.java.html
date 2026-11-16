@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>gradebook.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">JaCoCo Coverage Report</a> &gt; <a href="index.source.html" class="el_package">default</a> &gt; <span class="el_source">gradebook.java</span></div><h1>gradebook.java</h1><pre class="source lang-java linenums">
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+public class gradebook {
+
+    private String name;
+    private String rollNo;
+    private List&lt;Double&gt; scores;
+
+<span class="fc" id="L13">    private static Set&lt;String&gt; rollNumbers = new HashSet&lt;&gt;();</span>
+
+<span class="fc" id="L15">    public gradebook(String name, String idNumber) {</span>
+<span class="pc bpc" id="L16" title="1 of 2 branches missed.">        if (rollNumbers.contains(idNumber)) {</span>
+<span class="nc" id="L17">            throw new IllegalArgumentException(&quot;Duplicate roll number: &quot; + idNumber);</span>
+        }
+
+<span class="fc" id="L20">        rollNumbers.add(idNumber);</span>
+
+<span class="fc" id="L22">        this.name = name;</span>
+<span class="fc" id="L23">        this.rollNo = idNumber;</span>
+<span class="fc" id="L24">        this.scores = new ArrayList&lt;&gt;();</span>
+<span class="fc" id="L25">    }</span>
+
+    /**
+     * Adds a score to the student's score list.
+     *
+     * @param scoreValue the score to add; must be finite and non-negative
+     * @throws IllegalArgumentException if the score is negative, NaN, or
+     * infinite
+     */
+    public void addScore(double scoreValue) {
+<span class="pc bpc" id="L35" title="2 of 4 branches missed.">        if (scoreValue &lt; 0 || !Double.isFinite(scoreValue)) {</span>
+<span class="nc" id="L36">            throw new IllegalArgumentException(</span>
+                    &quot;Score must be a finite non-negative value&quot;);
+        }
+
+<span class="fc" id="L40">        scores.add(scoreValue);</span>
+<span class="fc" id="L41">    }</span>
+
+    public int getScoreCount() {
+<span class="fc" id="L44">        return scores.size();</span>
+    }
+     public String getName() {
+<span class="fc" id="L47">        return name;</span>
+    }
+
+    public String letterGrade(double score) {
+<span class="fc bfc" id="L51" title="All 4 branches covered.">        if (score &lt; 0 || score &gt; 100) {</span>
+<span class="fc" id="L52">            throw new IllegalArgumentException(&quot;Score must be between 0 and 100&quot;);</span>
+        }
+
+<span class="fc bfc" id="L55" title="All 2 branches covered.">        if (score &lt; 60) {</span>
+<span class="fc" id="L56">            return &quot;F&quot;;</span>
+<span class="fc bfc" id="L57" title="All 2 branches covered.">        } else if (score &lt; 70) {</span>
+<span class="fc" id="L58">            return &quot;D&quot;;</span>
+<span class="fc bfc" id="L59" title="All 2 branches covered.">        } else if (score &lt; 80) {</span>
+<span class="fc" id="L60">            return &quot;C&quot;;</span>
+<span class="fc bfc" id="L61" title="All 2 branches covered.">        } else if (score &lt; 90) {</span>
+<span class="fc" id="L62">            return &quot;B&quot;;</span>
+        } else {
+<span class="fc" id="L64">            return &quot;A&quot;;</span>
+        }
+    }
+
+    public boolean validateName(String name) {
+<span class="pc bpc" id="L69" title="1 of 6 branches missed.">        if (name == null || name.isEmpty() || name.length() &gt; 50) {</span>
+<span class="fc" id="L70">            return false;</span>
+        }
+
+<span class="fc" id="L73">        boolean hasLetter = false;</span>
+
+<span class="fc bfc" id="L75" title="All 2 branches covered.">        for (char ch : name.toCharArray()) {</span>
+<span class="fc bfc" id="L76" title="All 2 branches covered.">            if (Character.isLetter(ch)) {</span>
+<span class="fc" id="L77">                hasLetter = true;</span>
+<span class="fc bfc" id="L78" title="All 4 branches covered.">            } else if (ch != ' ' &amp;&amp; ch != '-') {</span>
+<span class="fc" id="L79">                return false;</span>
+            }
+        }
+
+<span class="fc" id="L83">        return hasLetter;</span>
+    }
+
+    public double average() {
+<span class="pc bpc" id="L87" title="1 of 2 branches missed.">        if (scores.isEmpty()) {</span>
+<span class="nc" id="L88">            return 0.0;</span>
+        }
+
+<span class="fc" id="L91">        double sum = 0.0;</span>
+
+<span class="fc bfc" id="L93" title="All 2 branches covered.">        for (double score : scores) {</span>
+<span class="fc" id="L94">            sum += score;</span>
+<span class="fc" id="L95">        }</span>
+
+<span class="fc" id="L97">        return sum / scores.size();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.16.202610240946</span></div></body></html>
