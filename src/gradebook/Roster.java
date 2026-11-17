@@ -1,3 +1,4 @@
+package gradebook;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -51,7 +52,8 @@ public class Roster {
     }
 
     public void save_to_file(String path) {
-        try (Writer writer = writerFactory.open(path); BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
+        try (Writer writer = writerFactory.open(path);
+             BufferedWriter bufferedWriter = new BufferedWriter(writer)) {
             bufferedWriter.write("Student Count: " + students.size());
             bufferedWriter.newLine();
             bufferedWriter.write("Class Average: " + class_average());
@@ -114,12 +116,10 @@ public class Roster {
 }
 
 interface WriterFactory {
-
     Writer open(String path) throws IOException;
 }
 
 class GradeBookIOError extends RuntimeException {
-
     public GradeBookIOError(String message, Throwable cause) {
         super(message, cause);
     }
