@@ -42,6 +42,9 @@ jobs:
           $cp = "build/classes;build/deps/*;lib/junit-platform-console-standalone-1.14.1.jar"
           $testSources = Get-ChildItem -Path tests -Filter *.java -Recurse | ForEach-Object { $_.FullName }
           javac -encoding UTF-8 -parameters -cp $cp -d build/test-classes $testSources
+          if (Test-Path "src/test/resources") {
+            Copy-Item -Path "src/test/resources\*" -Destination "build/test-classes" -Recurse -Force
+          }
 
       - name: Run JUnit tests with JaCoCo
         shell: pwsh
