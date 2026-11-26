@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GradeBook UI</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2rem; }
+    .error { color: #b91c1c; margin-top: 0.5rem; }
+    table { border-collapse: collapse; margin-top: 1.5rem; width: 100%; max-width: 850px; }
+    th, td { border: 1px solid #ccc; padding: 0.5rem 0.75rem; text-align: left; }
+  </style>
+</head>
+<body>
+  <h1>GradeBook</h1>
+
+  <form id="student-form">
+    <label for="name-input">Name:</label>
+    <input id="name-input" type="text" />
+
+    <label for="roll-input">Roll Number:</label>
+    <input id="roll-input" type="text" placeholder="S1001" />
+
+    <button id="add-btn" type="submit">Add Student</button>
+    <div id="validation-error" class="error" role="alert"></div>
+  </form>
+
+  <table id="students-table">
+    <thead>
+      <tr>
+        <th>Roll No</th>
+        <th>Name</th>
+        <th>Scores</th>
+        <th>Average</th>
+        <th>Add Score</th>
+      </tr>
+    </thead>
+    <tbody id="students-body"></tbody>
+  </table>
+
+  <script>
+    const API_BASE = "/api";
+    const form = document.getElementById("student-form");
+    const nameInput = document.getElementById("name-input");
+    const rollInput = document.getElementById("roll-input");
+    const errorEl = document.getElementById("validation-error");
+    const tbody = document.getElementById("students-body");
+
+    function showError(msg) {
+      errorEl.textContent = msg;
+    }
+
+    function clearError() {
+      errorEl.textContent = "";
+    }
+
+    async function loadStudents() {
+      const res = await fetch(`${API_BASE}/students`);
+      if (!res.ok) return;
+      const students = await res.json();
+      renderStudents(students);
+    }
+
+    function renderStudents(students) {
+      tbody.innerHTML = "";
+      students.forEach((s) => {
+        const studentId = s.studentId ?? s.id;
+        const scores = Array.isArray(s.scores) ? s.scores.join(", ") : "";
+        const avg = typeof s.average === "number" ? s.average.toFixed(2) : (s.average ?? "");
+
+        const tr = document.createElement("tr");
+        tr.id = `row-${studentId}`;
+        tr.innerHTML = `
+          <td>${studentId}</td>
+          <td>${s.name ?? ""}</td>
+          <td id="scores-${studentId}">${scores}</td>
+          <td id="avg-${studentId}">${avg}</td>
+          <td>
+            <input id="score-input-${studentId}" type="number" step="1" />
+            <button id="score-btn-${studentId}" type="button" onclick="addScore('${studentId}')">Add Score</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    async function addScore(studentId) {
+      clearError();
+      const input = document.getElementById(`score-input-${studentId}`);
+      const rawText = input.value.trim();
+      const val = Number(rawText);
+      if (rawText === "" || !Number.isInteger(val)) {
+        showError("Please enter a valid integer score.");
+        return;
+      }
+      const res = await fetch(`${API_BASE}/students/${encodeURIComponent(studentId)}/scores`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ score: val })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        showError(data.message || data.error || "Could not add score.");
+        return;
+      }
+      input.value = "";
+      await loadStudents();
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      clearError();
+      const name = nameInput.value.trim();
+      const studentId = rollInput.value.trim();
+
+      if (!name) {
+        showError("Name is required.");
+        return;
+      }
+      if (!studentId) {
+        showError("Student ID / Roll number is required.");
+        return;
+      }
+
+      const res = await fetch(`${API_BASE}/students`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ studentId, name })
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        showError(data.message || data.error || "Failed to add student.");
+        return;
+      }
+      nameInput.value = "";
+      rollInput.value = "";
+      await loadStudents();
+    });
+
+    loadStudents();
+  </script>
+</body>
+</html>
