@@ -73,7 +73,7 @@ public class Roster {
      * Calculates the percentile rank of a student within a roster.
      *
      * @param student the student whose percentile is calculated
-     * @param roster the roster used for comparison
+     * @param roster  the roster used for comparison
      * @return the student's percentile rank
      */
     public double percentile(gradebook student, List<gradebook> roster) {
@@ -97,15 +97,13 @@ public class Roster {
     }
 
     private int compareStudents(gradebook first, gradebook second) {
-        int averageComparison
-                = Double.compare(second.average(), first.average());
+        int averageComparison = Double.compare(second.average(), first.average());
 
         if (averageComparison != 0) {
             return averageComparison;
         }
 
-        int nameComparison
-                = first.getName().compareToIgnoreCase(second.getName());
+        int nameComparison = first.getName().compareToIgnoreCase(second.getName());
 
         if (nameComparison != 0) {
             return nameComparison;
