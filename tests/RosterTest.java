@@ -1,19 +1,13 @@
 package gradebook;
+
 import java.io.IOException;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicReference;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-<<<<<<< HEAD
-=======
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.concurrent.atomic.AtomicReference;
-
->>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
 import org.junit.jupiter.api.Test;
 
 public class RosterTest {
@@ -146,18 +140,9 @@ public class RosterTest {
         student.addScore(80);
         roster.addStudent(student);
 
-<<<<<<< HEAD
         roster.save_to_file("test.txt");
 
         assertTrue(capturedWriter.get().toString().contains("Student Count: 1"));
-=======
-        roster.save_to_file("unused-test-path.txt");
-
-        String content = capturedWriter.get().toString();
-
-        assertTrue(content.contains("Student Count: 1"));
-        assertTrue(content.contains("Class Average: 80.0"));
->>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
     }
 
     @Test
@@ -168,16 +153,11 @@ public class RosterTest {
 
         GradeBookIOError error = assertThrows(
                 GradeBookIOError.class,
-<<<<<<< HEAD
                 () -> roster.save_to_file("test.txt")
-=======
-                () -> roster.save_to_file("unused-test-path.txt")
->>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
         );
 
         assertTrue(error.getCause() instanceof IOException);
     }
-<<<<<<< HEAD
 
     @Test
     void testPercentileNormalCalculation() {
@@ -196,7 +176,7 @@ public class RosterTest {
         roster.addStudent(student3);
 
         assertEquals(50.0, roster.percentile(student2,
-                java.util.List.of(student1, student2, student3)), 0.001);
+                List.of(student1, student2, student3)), 0.001);
     }
 
     @Test
@@ -207,7 +187,7 @@ public class RosterTest {
         Roster roster = new Roster();
 
         assertEquals(0.0, roster.percentile(student,
-                java.util.List.of()), 0.001);
+                List.of()), 0.001);
     }
 
     @Test
@@ -218,7 +198,7 @@ public class RosterTest {
         Roster roster = new Roster();
 
         assertEquals(100.0, roster.percentile(student,
-                java.util.List.of(student)), 0.001);
+                List.of(student)), 0.001);
     }
 
     @Test
@@ -232,10 +212,6 @@ public class RosterTest {
         Roster roster = new Roster();
 
         assertEquals(0.0, roster.percentile(student1,
-                java.util.List.of(student1, student2)), 0.001);
+                List.of(student1, student2)), 0.001);
     }
-
 }
-=======
-}
->>>>>>> 70f4d63 (Complete Lab 7 testing improvements)
