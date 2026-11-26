@@ -34,14 +34,14 @@ jobs:
           mvn -q dependency:copy-dependencies -DoutputDirectory=build/deps
           $cp = "build/deps/*"
           $sources = Get-ChildItem -Path src/gradebook -Filter *.java -Recurse | ForEach-Object { $_.FullName }
-          javac -encoding UTF-8 -cp $cp -d build/classes $sources
+          javac -encoding UTF-8 -parameters -cp $cp -d build/classes $sources
 
       - name: Compile JUnit tests
         shell: pwsh
         run: |
           $cp = "build/classes;build/deps/*;lib/junit-platform-console-standalone-1.14.1.jar"
           $testSources = Get-ChildItem -Path tests -Filter *.java -Recurse | ForEach-Object { $_.FullName }
-          javac -encoding UTF-8 -cp $cp -d build/test-classes $testSources
+          javac -encoding UTF-8 -parameters -cp $cp -d build/test-classes $testSources
 
       - name: Run JUnit tests with JaCoCo
         shell: pwsh
@@ -50,7 +50,7 @@ jobs:
           Get-ChildItem -Path "build/deps" -Filter *.jar -File | ForEach-Object {
             $cpArgs += @("--class-path", $_.FullName)
           }
-          java "-javaagent:lib/jacocoagent.jar=destfile=build/jacoco.exec" -jar lib/junit-platform-console-standalone-1.14.1.jar execute @cpArgs --scan-class-path
+          java "-javaagent:lib/jacocoagent.jar=destfile=build/jacoco.exec" -jar lib/junit-platform-console-standalone-1.14.1.jar execute @cpArgs --include-engine junit-jupiter --scan-class-path=build/test-classes
 
       - name: Generate JaCoCo XML report
         shell: pwsh
