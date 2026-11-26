@@ -46,7 +46,11 @@ jobs:
       - name: Run JUnit tests with JaCoCo
         shell: pwsh
         run: |
-          java "-javaagent:lib/jacocoagent.jar=destfile=build/jacoco.exec" -jar lib/junit-platform-console-standalone-1.14.1.jar execute --class-path "build/classes;build/test-classes;build/deps/*" --scan-class-path
+          $cpArgs = @("--class-path", "build/classes", "--class-path", "build/test-classes")
+          Get-ChildItem -Path "build/deps" -Filter *.jar -File | ForEach-Object {
+            $cpArgs += @("--class-path", $_.FullName)
+          }
+          java "-javaagent:lib/jacocoagent.jar=destfile=build/jacoco.exec" -jar lib/junit-platform-console-standalone-1.14.1.jar execute @cpArgs --scan-class-path
 
       - name: Generate JaCoCo XML report
         shell: pwsh
@@ -64,4 +68,3 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@4d1dc0c91ee400dcf8a6dddf2f705ac36542e304
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          
