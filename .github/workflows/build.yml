@@ -25,22 +25,28 @@ jobs:
         with:
           distribution: temurin
           java-version: 21
+          cache: maven
 
       - name: Compile production classes
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Force -Path build/classes, build/test-classes, build/reports | Out-Null
-          javac -d build/classes src/gradebook/*.java
+          New-Item -ItemType Directory -Force -Path build/classes, build/test-classes, build/reports, build/deps | Out-Null
+          mvn -q dependency:copy-dependencies -DoutputDirectory=build/deps
+          $cp = "build/deps/*"
+          $sources = Get-ChildItem -Path src/gradebook -Filter *.java -Recurse | ForEach-Object { $_.FullName }
+          javac -encoding UTF-8 -cp $cp -d build/classes $sources
 
       - name: Compile JUnit tests
         shell: pwsh
         run: |
-          javac -cp "build/classes;lib/junit-platform-console-standalone-1.14.1.jar" -d build/test-classes tests/*.java
+          $cp = "build/classes;build/deps/*;lib/junit-platform-console-standalone-1.14.1.jar"
+          $testSources = Get-ChildItem -Path tests -Filter *.java -Recurse | ForEach-Object { $_.FullName }
+          javac -encoding UTF-8 -cp $cp -d build/test-classes $testSources
 
       - name: Run JUnit tests with JaCoCo
         shell: pwsh
         run: |
-          java "-javaagent:lib/jacocoagent.jar=destfile=build/jacoco.exec" -jar lib/junit-platform-console-standalone-1.14.1.jar execute --class-path "build/classes;build/test-classes" --scan-class-path
+          java "-javaagent:lib/jacocoagent.jar=destfile=build/jacoco.exec" -jar lib/junit-platform-console-standalone-1.14.1.jar execute --class-path "build/classes;build/test-classes;build/deps/*" --scan-class-path
 
       - name: Generate JaCoCo XML report
         shell: pwsh
@@ -58,3 +64,4 @@ jobs:
         uses: SonarSource/sonarqube-scan-action@4d1dc0c91ee400dcf8a6dddf2f705ac36542e304
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          
